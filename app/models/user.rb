@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   # This will also let us return a human error message.
   #
   def self.authenticate(login, password)
-    puts "authenticate(#{login},#{password})"
+    #XXX puts "authenticate(#{login},#{password})"
      u = fetch(login)
      if (!u.crypted_password)
          u.password = password
