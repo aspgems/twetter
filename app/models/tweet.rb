@@ -1,7 +1,17 @@
 class Tweet < ActiveRecord::Base
   belongs_to :user
   belongs_to :recipient, :class_name => "User"
-    
+  @@twitter_client = nil
+  
+  def after_create    
+    tweet_me  
+  end
+  
+  def tweet_me
+    Tweet.get_client.update "#{user.username}: #{tweet}" #rescue nil
+  end
+  
+  
   def created_at_formatted
     self.created_at.gmtime.strftime("%a %b %d %H:%M:%S +0000 %Y")
   end
@@ -48,6 +58,16 @@ class Tweet < ActiveRecord::Base
       hours[tweet.created_at.hour] += 1
     end
     hours
+  end
+  
+  protected 
+  def Tweet.get_client
+    if @@twitter_client.nil?
+      oauth   = Twitter::OAuth.new JESTER_CFG[:twitter_consumer_token], JESTER_CFG[:twitter_consumer_secret]
+      oauth.authorize_from_access JESTER_CFG[:twitter_access_token], JESTER_CFG[:twitter_access_secret]
+      @@twitter_client=Twitter::Base.new(oauth)    
+    end
+    @@twitter_client
   end
 
 end
