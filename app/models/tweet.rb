@@ -8,7 +8,7 @@ class Tweet < ActiveRecord::Base
   end
   
   def tweet_me
-    Tweet.get_client.update "#{user.username}: #{tweet}" #rescue nil
+    Tweet.get_client.update "#{user.username}: #{tweet}"[0,140] rescue nil
   end
   
   
