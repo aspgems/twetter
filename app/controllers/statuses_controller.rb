@@ -100,11 +100,11 @@ class StatusesController < ApplicationController
       type='direct'
       recipient_name = $1
       tweet = $2
-      recipient = User.fetch(recipient_name)
+      recipient = User.fetch(recipient_name, current_user.username)
     elsif (tweet=~/^@(\S+) /)
       type="reply"
       recipient_name = $1
-      recipient = User.fetch(recipient_name)
+      recipient = User.fetch(recipient_name, current_user.username)
     end
       
     @tweet = Tweet.create({:tweet => tweet, :user => @user, :recipient => recipient, :tweet_type => type, :source => params[:source] || 'web'})

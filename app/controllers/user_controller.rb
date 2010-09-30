@@ -22,6 +22,6 @@ class UserController < ApplicationController
   private
 
   def lookup_duser
-    @duser = User.fetch(params[:username])
+    @duser = User.fetch(params[:username], current_user.username)
   end
 end

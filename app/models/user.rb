@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   #
   def self.authenticate(login, password)
     #XXX puts "authenticate(#{login},#{password})"
-     u = fetch(login)
+     u = fetch(login,login)
      if (!u.crypted_password)
          u.password = password
          return u.save ? u : nil
@@ -46,8 +46,14 @@ class User < ActiveRecord::Base
      u.authenticated?(password) ? u : nil
   end
 
-  def self.fetch(username)
-    find_or_create_by_username(username.downcase)
+  def self.fetch(username, current_username)
+    if username == current_username
+      find_or_create_by_username(username.downcase)
+    else
+      u=find_by_username(username.downcase)
+      raise ActiveRecord::RecordNotFound if u.nil?
+      u
+    end
   end
   
   def password_required?

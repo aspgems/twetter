@@ -11,7 +11,7 @@ class AccountController < ApplicationController
   end
 
   def profile_image
-    @duser = User.fetch(params[:id])
+    @duser = User.fetch(params[:id], current_user.username)
   end
 
   def update_profile_image
