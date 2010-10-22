@@ -10,7 +10,7 @@ class StatusesController < ApplicationController
     render_tweets
   end
 
-  def public_timeline
+  def public_timeline    
     friends_timeline
   end
 

@@ -103,8 +103,8 @@ $.fn.isUpdateForm = function() {
 
         function H() {
             var J = F.val();
-            if (J.length > 140) {
-                alert(_("That update is over 140 characters!"));
+            if (J.length > 240) {
+                alert(_("That update is over 240 characters!"));
                 return false
             } else {
                 if (J.replace(/s\*/g, "") == "") {
@@ -259,20 +259,20 @@ $.fn.isCharCounter = function() {
         function F() {
             var L = E.val();
             var K = L.length;
-            D.html("" + (140 - K));
+            D.html("" + (240 - K));
             if (K <= 0) {
                 D.css("color", "#cccccc");
                 B()
             } else {
-                if (K <= 140 && (C.length == 0 || C.val())) {
+                if (K <= 240 && (C.length == 0 || C.val())) {
                     G()
                 } else {
                     B()
                 }
-                if (K > 130) {
+                if (K > 230) {
                     D.css("color", "#d40d12")
                 } else {
-                    if (K > 120) {
+                    if (K > 220) {
                         D.css("color", "#5c0002")
                     } else {
                         D.css("color", "#cccccc")
