@@ -63,9 +63,7 @@ class Tweet < ActiveRecord::Base
   protected 
   def Tweet.get_client
     if @@twitter_client.nil?
-      oauth   = Twitter::OAuth.new JESTER_CFG[:twitter_consumer_token], JESTER_CFG[:twitter_consumer_secret]
-      oauth.authorize_from_access JESTER_CFG[:twitter_access_token], JESTER_CFG[:twitter_access_secret]
-      @@twitter_client=Twitter::Base.new(oauth)    
+      @@twitter_client = Twitter::Client.new
     end
     @@twitter_client
   end
